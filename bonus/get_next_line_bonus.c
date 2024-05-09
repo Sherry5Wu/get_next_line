@@ -10,15 +10,14 @@ static char *get_buffer(int fd, char *buffer)
         return (NULL);
     while (!ft_strchr(buffer, '\n') && read_bytes > 0)
     {
-        read_bytes = read(fd, buffer, BUFFER_SIZE);
+        read_bytes = read(fd, tmp_buffer, BUFFER_SIZE);
         if (read_bytes == -1)
         {
             free(tmp_buffer);
-            free(buffer);
-            return (NULL);
+            return (free_mem(&buffer));
         }
         tmp_buffer[read_bytes] = '\0';
-        buffer = ft_strjoin(buffer, tmp_buffer, BUFFER_SIZE);
+        buffer = ft_strjoin(buffer, tmp_buffer);
     }
     free(tmp_buffer);
     return (buffer);
@@ -47,7 +46,20 @@ static char *get_the_line(char *buffer)
 
 static char *get_rest(char *buffer)
 {
-    // 还没有写完
+    char    *rest;
+    int     i;
+
+    while (buffer[i] && buffer[i] != '\n')
+        i++;
+    if (!buffer[i])
+    {
+        return (free_mem(&buffer));
+    }
+    rest = ft_substr(buffer, (i + 1), (ft_strlen(buffer) - (i + 1)));
+    if (!rest)
+        return (NULL);
+    free_mem(&buffer);
+    return (rest);
 }
 
 char *get_next_line(int fd)
@@ -59,11 +71,6 @@ char *get_next_line(int fd)
     {
         line = (char *)malloc(sizeof(char));
         *line = '\0';
-    }
-    if (buffer == NULL)
-    {
-        buffer = (char **)malloc(sizeof(char *));
-        *buffer = "\0";
     }
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
