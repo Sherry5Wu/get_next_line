@@ -1,20 +1,31 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jingwu <jingwu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/10 08:17:54 by jingwu            #+#    #+#             */
+/*   Updated: 2024/05/10 08:18:11 by jingwu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef GET_NEXT_LINE_BONUS_H
-#define GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE (42)
+# define BUFFER_SIZE (42)
 #endif
 
-#include <limits.h> // for OPEN_MAX
-#include <sys/types.h> // for sszie_t
-#include <stdlib.h> // for malloc
+#include <unistd.h>
+#include <stdlib.h>
+//#include <sys/types.h>
+#include <limits.h> 
 
-char *get_next_line(int fd);
-size_t  slen(char  *str);
-char    *ft_strjoin(char *dest, char *src);
-char    *ft_strchr(const char *str, int c);
-void     *free_mem(char  **str);
-char    *ft_substr(char const *s, unsigned int start, size_t len);
+char	*get_next_line(int fd);
+char	*ft_strchr(const char *str, int c);
+char	*ft_strjoin(char *dest, char *src);
+size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	*free_mem(char **str);
 
 #endif
