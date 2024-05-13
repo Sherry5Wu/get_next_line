@@ -34,27 +34,27 @@ static char	*get_buffer(int fd, char *buffer)
 		buffer = ft_strjoin(buffer, tmp_buffer);
 	}
 	free(tmp_buffer);
+	if (!buffer)
+		return (NULL);
 	return (buffer);
 }
 
 static char	*get_the_line(char *buffer)
 {
-	size_t	size;
+	ssize_t	size;
 	char	*line;
 
 	size = 0;
 	while (buffer[size] && buffer[size] != '\n')
 		size++;
-	line = (char *)malloc(sizeof(char) * (size + 2));
+	if (buffer[size] == '\n')
+		size++;
+	line = (char *)malloc(sizeof(char) * size);
 	if (!line)
 		return (NULL);
-	if (buffer[size] == '\n')
-		buffer[size + 1] != '\0';
-	while (size >= 0)
-	{
+	buffer[size] = '\0';
+	while (--size >= 0)
 		line[size] = buffer[size];
-		size--;
-	}
 	return (line);
 }
 
@@ -82,19 +82,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*buffer[OPEN_MAX];
 
-	if (line == NULL)
-	{
-		line = (char *)malloc(sizeof(char));
-		*line = '\0';
-    }
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
 	buffer[fd] = get_buffer(fd, buffer[fd]);
 	if (!buffer[fd])
 		return (NULL);
 	line = get_the_line(buffer[fd]);
 	if (!line)
-		return (NULL);
+		return (free_mem(&buffer));
 	buffer[fd] = get_rest(buffer[fd]);
 	return (line);
 }

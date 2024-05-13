@@ -1,8 +1,6 @@
 SRCS   := ${wildcard *.c}
-
-#OBJS   = ${SRCS:.c=.o}
-
-HEADER   = get_next_line.h
+#HEADER   = get_next_line.h
+HEADER  = get_next_line_bonus.h
 
 AR     = ar rc
 RM     = rm -f
@@ -16,9 +14,6 @@ all: ${NAME}
 
 ${NAME}: ${HEADER} ${SRCS}
 	${CC} ${CFLAGS} ${SRCS} -I $< -o $@
-
-#%.o: %.c
-#	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
 	${RM} ${OBJS}

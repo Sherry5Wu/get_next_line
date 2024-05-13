@@ -22,7 +22,7 @@
     Read line: correct behavior.
     NULL: there is nothing else to read, or an error occurred.
 */
-
+#include <stdio.h>
 static char	*get_buffer(int fd, char *buffer)
 {
 	ssize_t	read_bytes;
@@ -38,41 +38,36 @@ static char	*get_buffer(int fd, char *buffer)
 		if (read_bytes == -1)
 		{
 			free(tmp_buffer);
-			return (free_mem(buffer));
+			return (free_mem(&buffer));
 		}
 		if (read_bytes == 0)
 			break;
 		tmp_buffer[read_bytes] = '\0';
 		buffer = ft_strjoin(buffer, tmp_buffer);
 	}
-	free(tmp_buffer);
-	// if (buffer[0] != '\0')
-	// 	return (buffer);
-	// return (NULL);
+	free(tmp_buffer); 
+	if (!buffer)
+		return (NULL);
 	return (buffer);
 }
 
 static char	*get_the_line(char *buffer)
 {
-	size_t  size;
+	ssize_t  size;
 	char	*line;
 
 	size = 0;
 	if (buffer)
-	{
 		while (buffer[size] && buffer[size] != '\n')
 			size++;
-	}
-	line = (char *)malloc(sizeof(char) * (size + 2));
+	if (buffer[size] == '\n')
+		size++;
+	line = (char *)malloc(sizeof(char) * size);
 	if (!line)
 		return (free_mem(&buffer));
-	if (buffer[size] == '\n')
-		line[size + 1] = '\0';
-	while (size >= 0)
-    {
+	line[size] = '\0';
+	while (--size >= 0)
 		line[size] = buffer[size];
-		size--;
-    }
     return (line);
 }
 
@@ -106,11 +101,13 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = get_buffer(fd, buffer);
+//	printf("%s-buffer=%s\n", __FUNCTION__, buffer);
 	if (!buffer)
 		return (NULL);
 	line = get_the_line(buffer);
 	if (!line)
 		return (free_mem(&buffer));
 	buffer = get_rest(buffer);
+//	printf("%s buffer=%p\n", __FUNCTION__, line);
 	return (line);
 }
