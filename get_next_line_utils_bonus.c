@@ -6,10 +6,10 @@
 /*   By: jingwu <jingwu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 08:18:27 by jingwu            #+#    #+#             */
-/*   Updated: 2024/05/14 12:59:08 by jingwu           ###   ########.fr       */
+/*   Updated: 2024/05/14 13:01:27 by jingwu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*free_mem(char **str)
 {

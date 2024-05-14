@@ -9,7 +9,7 @@
 /*   Updated: 2024/05/14 12:35:50 by jingwu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*get_buffer(int fd, char *buffer)
 {
@@ -85,16 +85,16 @@ static char	*get_rest(char *buffer)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*buffer;
+	static char	*buffer[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
-	buffer = get_buffer(fd, buffer);
-	if (!buffer)
+	buffer[fd] = get_buffer(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = get_the_line(buffer);
+	line = get_the_line(buffer[fd]);
 	if (!line)
-		return (free_mem(&buffer));
-	buffer = get_rest(buffer);
+		return (free_mem(&buffer[fd]));
+	buffer[fd] = get_rest(buffer[fd]);
 	return (line);
 }
