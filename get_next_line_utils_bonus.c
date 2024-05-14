@@ -56,7 +56,7 @@ char	*ft_strjoin(char *dest, char *src)
 		return (NULL);
 	nstr = malloc(sizeof(char) * (ft_strlen(dest) + ft_strlen(src) + 1));
 	if (!nstr)
-		return (NULL);
+		return (free_mem(&dest));
 	i = 0;
 	j = 0;
 	if (dest)
