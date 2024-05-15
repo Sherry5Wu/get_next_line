@@ -70,7 +70,8 @@ char	*ft_strjoin(char *dest, char *src)
 	while (src[j])
 		nstr[i++] = src[j++];
 	nstr[i] = '\0';
-	return (free(dest), nstr);
+	free(dest);
+	return (nstr);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
