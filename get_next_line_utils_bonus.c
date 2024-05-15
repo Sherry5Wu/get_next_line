@@ -37,12 +37,14 @@ char	*ft_strchr(const char *str, int c)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (i < (ft_strlen(str) + 1))
+	while (str[i])
 	{
 		if (str[i] == (char)c)
 			return ((char *)str + i);
 		i++;
 	}
+	if ((char)c == '\0')
+		return ((char *)str + i);
 	return (NULL);
 }
 
