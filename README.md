@@ -68,7 +68,7 @@ https://buzut.net/cours/computer-science/differents-types-de-memoires
 - Test your functions by yourself before using other testing tools.
 
 
-## Link To libft Tester
+## Link To Tester
 https://github.com/xicodomingues/francinette
 
 Note: remember using command 'paco --strict' to test your functions too.
