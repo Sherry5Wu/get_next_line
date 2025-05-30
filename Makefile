@@ -1,26 +1,20 @@
-SRCS   := ${wildcard *.c}
-#HEADER   = get_next_line.h
-HEADER  = get_next_line_bonus.h
+SRCS := get_next_line.c get_next_line_utils.c main_get_next_line.c
 
-AR     = ar rc
-RM     = rm -f
-LIB    = ranlib
-CC     = cc
-CFLAGS = -Wall -Wextra -Werror
-
-NAME = test
+CC := cc
+CFLAGS := -Wall -Wextra -Werror
+NAME := get_next_line
 
 all: ${NAME}
 
-${NAME}: ${HEADER} ${SRCS}
-	${CC} ${CFLAGS} ${SRCS} -I $< -o $@
+${NAME}: ${SRCS}
+	${CC} ${CFLAGS} ${SRCS} -o $@
 
 clean:
-	${RM} ${OBJS}
+	@rm -f *.o
 
-fclean:
-	${RM} ${NAME}
+fclean: clean
+	@rm -f ${NAME}
 
-re:	fclean all
+re: fclean all
 
-.PHONY:		all fclean re
+.PHONY: all clean fclean re

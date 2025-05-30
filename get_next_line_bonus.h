@@ -13,7 +13,11 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE (1)
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX (1024)
 # endif
 
 # include <unistd.h>

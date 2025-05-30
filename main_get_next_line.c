@@ -2,15 +2,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-//#if 0
+#if 1
 // mandatory part
 #include "get_next_line.h"
 int main()
 {
     int    fd;
     char *line;
-    
-    fd = open("big_line_no_nl", O_RDONLY);
+
+    fd = open("tests/test2.txt", O_RDONLY);
     line = get_next_line(fd);
     while (line)
     {
@@ -18,17 +18,10 @@ int main()
         free(line);
         line = get_next_line(fd);
     }
-    // do
-    // {
-    //     line = get_next_line(fd);
-    //     printf("Line:%s", line);
-    //     free(line);
-    //     line = get_next_line(fd);
-    // } while (line);  
     free(line);
     close(fd);
 }
-//#endif
+#endif
 
 #if 0
 // bonus part
@@ -77,7 +70,7 @@ int main()
 // {
     // int    fd;
     // char *line;
-    
+
     // fd = open("file.txt", O_RDONLY);
     // line = get_next_line(fd);
     // while (line)
